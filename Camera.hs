@@ -5,6 +5,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
 
+--parse 
 parseInput :: [String] -> [(String,GLdouble,GLdouble,GLdouble)]
 parseInput [] = []
 parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) || (isInfixOf "direction" xs ) )
