@@ -1,17 +1,12 @@
-module Polygon where
+module Shapes.Polygon where
 
 import Text.ParserCombinators.Parsec
 import Data.Char
-<<<<<<< HEAD
-import Graphics.UI.GLUT
-import Graphics.Rendering.OpenGL
 import Data.List
-=======
-import Data.List
-import Color
-import Translate
-import Rotate
-import Scale
+import Appearence.Color
+import Appearence.Translate
+import Appearence.Rotate
+import Appearence.Scale
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 
@@ -27,7 +22,6 @@ polygonFound (x:xs)=let myPoints = (returnArgsPoly (read (eatSpaces x)) xs)
                                        in  parseRPolyArgs xs myPoints
 
 
->>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
 returnArgsPoly::Int ->[String] -> [(GLfloat,GLfloat,GLfloat)]
 returnArgsPoly 0 _ = []
 returnArgsPoly a [] = []
@@ -52,69 +46,43 @@ returnArgPoly (x:xs) = if x== '<'
                                          in ((read y1) , (read y2) , (read y3)) 
                          else returnArgPoly xs
 
-<<<<<<< HEAD
-parseRPolyArgs [] myPoints= do currentColor $= Color4 1 0 0 0
-                               translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
-=======
 
 
 parseRPolyArgs [] myPoints= do currentColor $= Color4 1 0 0 0
->>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
                                hOpenGlPolygon myPoints
 parseRPolyArgs (xs:xss) myPoints = do
                              if (isInfixOf "color rgb" xs )
                               then
                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                 in
+                                 do
                                   setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                  parseRPolyArgs xss myPoints
                               else
-<<<<<<< HEAD
-                                parseRPolyArgs xss myPoints
-                             translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
-                             hOpenGlPolygon myPoints
-
-getRGBVal :: String->(String,String)
-getRGBVal [] = ([],[])
-getRGBVal (x:xs) = do
-                  if ((x == ',') || (x == '>'))
-                    then ([],xs)
-                    else
-                     if (isSpace x)
-                      then (fst(getRGBVal xs),snd(getRGBVal xs))
-                      else (x:fst(getRGBVal xs),snd(getRGBVal xs))
-
---setColorRGB :: String -> ( Int , Int , Int)
-setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
-                    in 
-                      let (g, gs) = getRGBVal rs
-                        in 
-                          let (b,bs) = getRGBVal gs
-                            in currentColor $= Color4 (read r) (read g) (read b) 0
- 
-
-hOpenGlPolygon args =  --loadIdentity
-                          --translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
-                          renderPrimitive Polygon $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args
-                          
-=======
                               
                                        if (isInfixOf "translate" xs )
                                          then
                                            let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                             in
+                                             do
                                               translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                              parseRPolyArgs xss myPoints
                                          else
                                             if (isInfixOf "rotate" xs )
                                              then
                                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                 in
+                                                 do
                                                   rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                  parseRPolyArgs xss myPoints
                                              else
                                               if (isInfixOf "scale" xs )
                                                then
                                                  let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                   in
-                                                   scaleImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                   do
+                                                    scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                    parseRPolyArgs xss myPoints
                                                else     
                                                  parseRPolyArgs xss myPoints
                              hOpenGlPolygon myPoints
@@ -122,5 +90,4 @@ hOpenGlPolygon args =  --loadIdentity
 
 hOpenGlPolygon args = renderPrimitive Polygon $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args
                       
->>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
 

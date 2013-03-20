@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 camera {
     orthographic
     location <0, -1, -2>
@@ -35,3 +36,28 @@ polygon {
     pigment { color rgb <1, 0, 0> }
     translate <0.0, 0.0, -1.0>
   }
+=======
+polygon {
+    5,
+    <0.0,0.0,0.0>
+         ,<2.0,3.0, 0.0>
+         ,<2.0,-3.0, 0.0>
+         ,<5.0,3.0, 0.0>
+         ,<5.0,-3.0, 0.0>
+    texture {
+      finish { ambient 1 diffuse 0 
+ }
+      pigment { color rgb <1, 1, 1>
+ }
+  } 
+  }
+
+camera {
+  location <0,0,0>
+  look_at <0,0,0>
+}
+light_source {
+  <0,10,-10>
+  color rgb <1,1,1>
+}
+>>>>>>> f339ca7374459d61eee5693947dee4880cede7c3

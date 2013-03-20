@@ -1,0 +1,22 @@
+module Tri where
+
+import Text.ParserCombinators.Parsec
+import Data.Char
+import Graphics.UI.GLUT
+import Graphics.Rendering.OpenGL
+import Polygon
+
+eatSpaces::String -> String
+eatSpaces [] =[]
+eatSpaces (x:xs) | (isSpace x) = eatSpaces xs
+                 | (x== ',') = eatSpaces xs
+                 |otherwise = x:(eatSpaces xs)
+
+
+triangleFound::[String] -> IO ()
+triangleFound (x:xs)=let myPoints = (returnArgsPoly 3 (x:xs))
+                                       in  hOpenGlTriangle myPoints
+
+
+hOpenGlTriangle args = renderPrimitive Triangles $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args
+

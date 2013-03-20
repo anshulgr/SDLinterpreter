@@ -1,0 +1,33 @@
+module Cylinder where
+
+import Text.ParserCombinators.Parsec
+import Data.Char
+import Graphics.UI.GLUT
+import Graphics.Rendering.OpenGL
+import Polygon
+
+returnArgsCy 0 _ = []
+returnArgsCy a [] = []
+returnArgsCy a (x:xs) = (returnArgCy x):(returnArgsCy (a-1) xs)
+
+returnArgCy [] = (0.0,0.0,0.0)
+returnArgCy (x:xs) = if x== '<'
+                         then let (y1,z1) = (myFunc xs)
+                               in let (y2,z2 )= (myFunc z1)
+                                    in let (y3,z3 )= (myFunc z2)
+                                         in ((read y1) , (read y2) , (read y3)) 
+                         else returnArgCy xs
+                         
+cylinderFound::[String] -> IO ()
+cylinderFound (x:xs) = let myPoints = (returnArgsCy 2 (x:xs))
+                           rad      =  read (eatSpaces (head (tail xs)))
+					                   in  hOpenGlCylinder myPoints rad (calcHeight myPoints)
+
+calcHeight [(x1,y1,z1),(x2,y2,z2)]= sqrt (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2))+((z1-z2)*(z1-z2)))
+					
+
+
+
+
+hOpenGlCylinder myPoints rad h= renderObject Solid (Cylinder' rad h 1000 1000)
+

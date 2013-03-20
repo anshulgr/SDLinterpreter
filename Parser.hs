@@ -4,11 +4,14 @@ import Text.ParserCombinators.Parsec
 import Data.Char
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
+<<<<<<< HEAD
 import Data.List
 import Data.String
 import System.Environment
 import System.Directory
 --import Filesystem.Path.CurrentOS
+=======
+>>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
 
 
 
@@ -69,12 +72,18 @@ removeSpaces (x:[]) | isSpace x =[]
 removeSpaces (x:y:xs) | (isSpace x == True && isSpace y == False)  = x:y:(removeSpaces xs)
                       | (isSpace x == True && isSpace y == True)  = (removeSpaces (y:xs))
                       | otherwise = x : (removeSpaces (y:xs))
+<<<<<<< HEAD
 mainComputation= do
          contents <- readFile "povray-polygon.pov"
+=======
+mainComputation arg  = do
+         contents <- readFile arg--"cylinder.pov"
+>>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
          return $ parseCSV contents
 
 
 
+<<<<<<< HEAD
 
 --remove comments
 comment :: GenParser Char st ()
@@ -154,3 +163,5 @@ getFileName s= read s
 
 
 
+=======
+>>>>>>> f339ca7374459d61eee5693947dee4880cede7c3
