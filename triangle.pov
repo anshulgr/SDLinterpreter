@@ -1,5 +1,5 @@
 camera {
-location <-2, 3, -10>
+location <-2, 3, -1>
 look_at <0, 5, 0>
 direction <1,2,3>
 }
@@ -12,5 +12,7 @@ color rgb <1, 0, 0>
 }
 }
 light_source {
-<10, 10, -10> color rgb <0,0,0>
+<1, 1, -1> color rgb <0,0,0>
 }
+
+//triangle 

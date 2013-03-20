@@ -1,6 +1,7 @@
 import Data.List
 import Data.Char
 
+--parse ploygon arguments
 parseRPolyArgs xs = 
                         if (isInfixOf "color rgb" xs )
                          then
@@ -20,6 +21,7 @@ getRGBVal (x:xs) = do
                       then (fst(getRGBVal xs),snd(getRGBVal xs))
                       else (x:fst(getRGBVal xs),snd(getRGBVal xs))
 
+--set color
 setColorRGB :: String -> ( Int , Int , Int)
 setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
                     in 

@@ -17,7 +17,7 @@ parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) 
                          else
                            parseInput xss
 
---parse camera
+
 parseCamera xs = setPointOfView location  lookat direction
                      where location  = (findLoc (parseInput xs))
                            lookat    = findLookat (parseInput xs)

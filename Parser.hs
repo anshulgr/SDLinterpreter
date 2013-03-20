@@ -65,7 +65,7 @@ removeSpaces (x:y:xs) | (isSpace x == True && isSpace y == False)  = x:y:(remove
                       | (isSpace x == True && isSpace y == True)  = (removeSpaces (y:xs))
                       | otherwise = x : (removeSpaces (y:xs))
 mainComputation= do
-         contents <- readFile "sphere.pov"
+         contents <- readFile "povray-polygon.pov"
          return $ parseCSV contents
 
 
