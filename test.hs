@@ -20,10 +20,6 @@ getRGBVal (x:xs) = do
                       then (fst(getRGBVal xs),snd(getRGBVal xs))
                       else (x:fst(getRGBVal xs),snd(getRGBVal xs))
 
-<<<<<<< HEAD
-=======
---set color
->>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 setColorRGB :: String -> ( Int , Int , Int)
 setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
                     in 

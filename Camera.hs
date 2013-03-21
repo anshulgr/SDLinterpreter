@@ -5,10 +5,6 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
 
-<<<<<<< HEAD
-=======
---parse 
->>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 parseInput :: [String] -> [(String,GLdouble,GLdouble,GLdouble)]
 parseInput [] = []
 parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) || (isInfixOf "direction" xs ) )
@@ -18,7 +14,6 @@ parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) 
                                  let (x1,y1,z1) = getLocation (fst (splitAt (head(elemIndices '>' xs)) interm))
                                    in (l1 ,x1,y1,z1) :(parseInput xss)
                          else
-<<<<<<< HEAD
                            if (isInfixOf "angle" xs)
                             then
                              let angle =  ( snd (splitAt (head (elemIndices ' ' (tail xs))) ( tail (xs) ) ) )
@@ -67,16 +62,6 @@ parseCamera xs = do
                     in setPointOfView location  lookat direction
                   callFrustum $ findAngle ( parseInput xs)
                   
-=======
-                           parseInput xss
-
-
-parseCamera xs = setPointOfView location  lookat direction
-                     where location  = (findLoc (parseInput xs))
-                           lookat    = findLookat (parseInput xs)
-                           direction = findDirection (parseInput xs)
-                      
->>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 
 findLoc res = let (a,x,y,z) = head ( filter (\(m,n,p,q) -> (isInfixOf "location" m ) ) res)
                 in (Vertex3 x y z)
@@ -87,12 +72,9 @@ findLookat res = let (a,x,y,z) = head ( filter (\(m,n,p,q) -> (isInfixOf "look_a
 findDirection res = let (a,x,y,z) =head ( filter (\(m,n,p,q) -> (isInfixOf "direction" m ) ) res)
                      in (Vector3 x y z)
 
-<<<<<<< HEAD
 findAngle res = let (a,x,y,z) =head ( filter (\(m,n,p,q) -> (isInfixOf "angle" m ) ) res)
                      in x
 
-=======
->>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 
 
 getLocation :: String -> (GLdouble,GLdouble,GLdouble)
