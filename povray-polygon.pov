@@ -1,4 +1,5 @@
 camera {
+<<<<<<< HEAD
     
     location <0, -1, -2>
     look_at <0, 1, 0>
@@ -20,6 +21,17 @@ polygon {
    
   }
 
+=======
+    orthographic
+    location <0, -1, -2>
+    right 1.3 * 4/3 * x
+    up 1.3 * y
+    look_at <0, 1, 0>
+    direction<-3,2,0> 
+    angle 45
+  }
+  light_source { <25, 25, -100> color rgb 1 }
+>>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 polygon {
     8,
     <0.45, 0.0,0>,
@@ -31,5 +43,8 @@ polygon {
     <0.65, 0.0,0>,
     <0.45, 0.0,0>
     pigment { color rgb <1, 0, 0> }
+<<<<<<< HEAD
    
+=======
+>>>>>>> 6f9978a24100922641af1727dbef277a528f24af
   }

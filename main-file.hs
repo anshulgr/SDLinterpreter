@@ -1,8 +1,12 @@
 import Parser
 import Polygon
+<<<<<<< HEAD
 --import Camera
 import Circle
 import Trans
+=======
+import Camera
+>>>>>>> 6f9978a24100922641af1727dbef277a528f24af
 import Text.ParserCombinators.Parsec
 import Data.Char
 import Graphics.UI.GLUT
@@ -18,7 +22,11 @@ eatSpaces (x:xs) | (isSpace x) = eatSpaces xs
 createAWindow windowName = do
            createWindow windowName
            displayCallback $= separateResult
+<<<<<<< HEAD
            reshapeCallback $= Just Main.reshape
+=======
+           reshapeCallback $= Just reshape
+>>>>>>> 6f9978a24100922641af1727dbef277a528f24af
            
 separateResult = do
           clear [ColorBuffer,DepthBuffer]
@@ -50,6 +58,7 @@ displayFunction (r:res) = do
                    --error (show res)
                    case r of 
                             ((x:y:xs)) ->   case x of
+<<<<<<< HEAD
                                                   {-"polygon"  -> let myPoints = (returnArgsPoly (read (eatSpaces y)) xs)
                                                                  in
                                                                    parseRPolyArgs xs myPoints 
@@ -60,6 +69,15 @@ displayFunction (r:res) = do
                                                   "sphere"   ->let myPoints   = [(0.0,0.0,0.0)]--(returnArgsPoly 1 (y:xs))
                                                                    radius     = 0.5--(read (eatSpaces(head xs))::Float)
                                                                       in hOpenGlCircle radius myPoints 
+=======
+                                                  "polygon"  -> let myPoints = (returnArgsPoly (read (eatSpaces y)) xs)
+                                                                 in
+                                                                   parseRPolyArgs xs myPoints 
+                                                  "triangle" -> let myPoints = (returnArgsPoly 3 (y:xs))
+                                                                  in  hOpenGlPolygon myPoints
+
+                                                  "camera"   -> parseCamera (y:xs)
+>>>>>>> 6f9978a24100922641af1727dbef277a528f24af
                                                   rest       ->  print ([(0.0,0.0,0.0)])
                    flush
                    displayFunction res
