@@ -30,6 +30,7 @@ returnArgPoly (x:xs) = if x== '<'
                          else returnArgPoly xs
 
 parseRPolyArgs [] myPoints= do currentColor $= Color4 1 0 0 0
+                               translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
                                hOpenGlPolygon myPoints
 parseRPolyArgs (xs:xss) myPoints = do
                              if (isInfixOf "color rgb" xs )
@@ -38,7 +39,8 @@ parseRPolyArgs (xs:xss) myPoints = do
                                 in
                                   setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
                               else
-                                parseRPolyArgs xss myPoints
+                                 parseRPolyArgs xss myPoints
+                             translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
                              hOpenGlPolygon myPoints
 
 getRGBVal :: String->(String,String)
@@ -60,6 +62,8 @@ setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
                             in currentColor $= Color4 (read r) (read g) (read b) 0
  
 
-hOpenGlPolygon args = renderPrimitive Polygon $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args
-                      
+hOpenGlPolygon args =  --loadIdentity
+                          --translate $ (Vector3 0.2 0.2 (0.2::GLfloat))
+                          renderPrimitive Polygon $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args
+                          
 
