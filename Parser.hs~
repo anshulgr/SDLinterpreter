@@ -6,7 +6,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 
 
---parse
+
 csvFile :: GenParser Char st [[String]]
 csvFile = 
     do result <- many line

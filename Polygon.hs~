@@ -10,7 +10,6 @@ import Scale
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 
---eat spaces
 eatSpaces::String -> String
 eatSpaces [] =[]
 eatSpaces (x:xs) | (isSpace x) = eatSpaces xs
