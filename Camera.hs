@@ -25,6 +25,7 @@ parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) 
                             else
                               parseInput xss
 
+--call frustum
 callFrustum ang = do
                      sz<-get screenSize
                      viewport $= ((Position 0 0), sz)

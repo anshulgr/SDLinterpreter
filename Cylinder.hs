@@ -23,7 +23,7 @@ returnArgCy (x:xs) = if x== '<'
                                     in let (y3,z3 )= (myFunc z2)
                                          in ((read y1) , (read y2) , (read y3)) 
                          else returnArgCy xs
-                         
+--cylinder found                         
 cylinderFound::[String] -> IO ()
 cylinderFound (x:xs) = let myPoints = (returnArgsCy 2 (x:xs))
                            rad      =  read (eatSpaces (head (tail xs)))
