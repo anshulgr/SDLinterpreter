@@ -64,8 +64,8 @@ removeSpaces (x:[]) | isSpace x =[]
 removeSpaces (x:y:xs) | (isSpace x == True && isSpace y == False)  = x:y:(removeSpaces xs)
                       | (isSpace x == True && isSpace y == True)  = (removeSpaces (y:xs))
                       | otherwise = x : (removeSpaces (y:xs))
-mainComputation= do
-         contents <- readFile "povray-polygon.pov"
+mainComputation arg = do
+         contents <- readFile arg--"triangle.pov"
          return $ parseCSV contents
 
 

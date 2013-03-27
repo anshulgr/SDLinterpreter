@@ -5,7 +5,6 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
 
---parse 
 parseInput :: [String] -> [(String,GLdouble,GLdouble,GLdouble)]
 parseInput [] = []
 parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) || (isInfixOf "direction" xs ) )
@@ -15,14 +14,54 @@ parseInput (xs:xss) =if ((isInfixOf "location" xs) || (isInfixOf "look_at" xs ) 
                                  let (x1,y1,z1) = getLocation (fst (splitAt (head(elemIndices '>' xs)) interm))
                                    in (l1 ,x1,y1,z1) :(parseInput xss)
                          else
-                           parseInput xss
+                           if (isInfixOf "angle" xs)
+                            then
+                             let angle =  ( snd (splitAt (head (elemIndices ' ' (tail xs))) ( tail (xs) ) ) )
+                               in ("angle",(read angle),0.0,0.0) :(parseInput xss) 
+                             {- callFrustum angle
+                                where angle = convertAngleType ( fst (splitAt (head (elemIndices ' ' (tail xs))) ( tail (xs) ) ) ) -}
+                            else
+                              parseInput xss
 
---parse camera
-parseCamera xs = setPointOfView location  lookat direction
-                     where location  = (findLoc (parseInput xs))
-                           lookat    = findLookat (parseInput xs)
-                           direction = findDirection (parseInput xs)
-                      
+callFrustum ang = do
+                     sz<-get screenSize
+                     viewport $= ((Position 0 0), sz)
+                     matrixMode $= Projection
+                     loadIdentity
+                     let near= 0.004
+                         far= 20
+                         fov= 50
+                         (w,h) = getScreenSize sz
+                         top= near -- / ( tan(ang) / cos(ang) )
+                         aspect = fromIntegral(w)/fromIntegral(h)
+                         right =  top*aspect
+                     frustum (-right) (right*15) (-top) top near far
+                     matrixMode $= Modelview 0
+
+
+
+getScreenSize sz = 
+                  case sz of
+                    (Size w h) -> (w,h)
+                 --   rest       -> error "not matching"
+
+
+
+
+
+
+
+
+
+convertAngleType :: String -> GLdouble
+convertAngleType xs = (read xs)
+cameraFound xs = do
+                  let location  = (findLoc (parseInput xs))
+                      lookat    = findLookat (parseInput xs)
+                      direction = findDirection (parseInput xs)
+                    in setPointOfView location  lookat direction
+                  callFrustum $ findAngle ( parseInput xs)
+                  
 
 findLoc res = let (a,x,y,z) = head ( filter (\(m,n,p,q) -> (isInfixOf "location" m ) ) res)
                 in (Vertex3 x y z)
@@ -32,6 +71,9 @@ findLookat res = let (a,x,y,z) = head ( filter (\(m,n,p,q) -> (isInfixOf "look_a
 
 findDirection res = let (a,x,y,z) =head ( filter (\(m,n,p,q) -> (isInfixOf "direction" m ) ) res)
                      in (Vector3 x y z)
+
+findAngle res = let (a,x,y,z) =head ( filter (\(m,n,p,q) -> (isInfixOf "angle" m ) ) res)
+                     in x
 
 
 
