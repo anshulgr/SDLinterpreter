@@ -5,7 +5,7 @@ import Data.Char
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
---rotate 
+
 getRotateVal :: String->(String,String)
 getRotateVal [] = ([],[])
 getRotateVal (x:xs) = do
