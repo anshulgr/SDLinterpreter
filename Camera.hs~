@@ -35,7 +35,7 @@ callFrustum ang = do
                          top= near -- / ( tan(ang) / cos(ang) )
                          aspect = fromIntegral(w)/fromIntegral(h)
                          right =  top*aspect
-                     frustum (-right) (right*10) (-top) top near far
+                     frustum (-right) (right*15) (-top) top near far
                      matrixMode $= Modelview 0
 
 

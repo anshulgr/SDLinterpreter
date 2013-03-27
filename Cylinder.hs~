@@ -8,6 +8,7 @@ import Polygon
 import Color
 import Translate
 import Rotate
+import Scale
 import Data.List
 
 returnArgsCy 0 _ = []
