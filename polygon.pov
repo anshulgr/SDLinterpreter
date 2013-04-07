@@ -17,7 +17,11 @@ camera {
 location <1, -2, -2>
 look_at <0, 5, 0>
 direction < 1,1,-1>
-angle 45
+up< 1, 2, 3 >
+right< -1, 1, 0.2 >
+angle 90
+focal_point <0.20,1.5,-5.25>
+aperture 0.7 
 }
 light_source {
   <0,10,-10>
