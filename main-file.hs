@@ -52,10 +52,11 @@ displayFunction (x:xs) = do
                              res        -> defaultFunc  
          -- flush
           displayFunction xs
+       {--    displayFunction xs--}
 
 
 
-
+{--change testing comment -}
 
 
 defaultFunc = print ([(0.0,0.0,0.0)])

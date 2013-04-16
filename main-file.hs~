@@ -6,6 +6,7 @@ import Shapes.Cylinder
 import Shapes.Cone
 import Shapes.Sphere
 import Appearence.Camera
+import Appearence.Light
 {-import Parser
 import Appearence
 import Shapes-}
@@ -51,10 +52,11 @@ displayFunction (x:xs) = do
                              res        -> defaultFunc  
          -- flush
           displayFunction xs
+       {--    displayFunction xs--}
 
 
 
-
+{--change testing comment -}
 
 
 defaultFunc = print ([(0.0,0.0,0.0)])
