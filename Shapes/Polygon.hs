@@ -55,29 +55,37 @@ parseRPolyArgs (xs:xss) myPoints = do
                               then
                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                 in
+                                 do
                                   setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                  parseRPolyArgs xss myPoints
                               else
                               
                                        if (isInfixOf "translate" xs )
                                          then
                                            let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                             in
+                                             do
                                               translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                              parseRPolyArgs xss myPoints
                                          else
                                             if (isInfixOf "rotate" xs )
                                              then
                                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                 in
+                                                 do
                                                   rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                  parseRPolyArgs xss myPoints
                                              else
                                               if (isInfixOf "scale" xs )
                                                then
                                                  let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                   in
-                                                   scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                   do
+                                                    scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                    parseRPolyArgs xss myPoints
                                                else     
                                                  parseRPolyArgs xss myPoints
-                             hOpenGlPolygon myPoints
+                         --    hOpenGlPolygon myPoints
  
 
 hOpenGlPolygon args = renderPrimitive Polygon $mapM_ (\(x, y, z)->vertex $ Vertex3 x y z) args

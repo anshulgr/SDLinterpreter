@@ -23,29 +23,37 @@ parseRTriangle (xs:xss) myPoints= do
                                  then
                                    let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                     in
-                                     setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                     do
+                                      setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                      parseRTriangle xss myPoints
                                  else
                                    
                                        if (isInfixOf "translate" xs )
                                          then
                                            let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                             in
+                                             do
                                               translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                              parseRTriangle xss myPoints
                                          else
                                            if (isInfixOf "rotate" xs )
                                              then
                                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                 in
+                                                 do
                                                   rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                  parseRTriangle xss myPoints
                                              else
                                               if (isInfixOf "scale" xs )
                                                then
                                                  let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                   in
-                                                   scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                   do
+                                                    scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                    parseRTriangle xss myPoints
                                                else
                                                   parseRTriangle xss myPoints
-                               hOpenGlTriangle myPoints
+                             --  hOpenGlTriangle myPoints
 
 
 

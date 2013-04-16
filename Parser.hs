@@ -6,7 +6,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 
 
---comment
+
 csvFile :: GenParser Char st [[String]]
 csvFile = 
     do result <- many line
@@ -64,8 +64,8 @@ removeSpaces (x:[]) | isSpace x =[]
 removeSpaces (x:y:xs) | (isSpace x == True && isSpace y == False)  = x:y:(removeSpaces xs)
                       | (isSpace x == True && isSpace y == True)  = (removeSpaces (y:xs))
                       | otherwise = x : (removeSpaces (y:xs))
-mainComputation arg = do
-         contents <- readFile arg--"triangle.pov"
+mainComputation arg  = do
+         contents <- readFile arg--"cylinder.pov"
          return $ parseCSV contents
 
 

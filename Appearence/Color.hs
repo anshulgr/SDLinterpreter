@@ -22,6 +22,7 @@ setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
                       let (g, gs) = getRGBVal rs
                         in 
                           let (b,bs) = getRGBVal gs
-                            in currentColor $= Color4 (read r) (read g) (read b) 0
- 
+                            in do clearColor $= Color4 0 0 0 0
+                                  clear [ColorBuffer,DepthBuffer]
+                                  currentColor $= Color4 (read r) (read g) (read b) 0
 

@@ -10,6 +10,7 @@ import Appearence.Translate
 import Appearence.Rotate
 import Appearence.Scale
 import Data.List
+import Appearence.Camera
 
 returnArgsCy 0 _ = []
 returnArgsCy a [] = []
@@ -20,7 +21,7 @@ returnArgCy (x:xs) = if x== '<'
                          then let (y1,z1) = (myFunc xs)
                                in let (y2,z2 )= (myFunc z1)
                                     in let (y3,z3 )= (myFunc z2)
-                                         in ((read y1) , (read y2) , (read y3)) 
+                                         in ((read y1) , (read y2) , (-(read y3))) 
                          else returnArgCy xs
                          
 cylinderFound::[String] -> IO ()
@@ -36,33 +37,42 @@ calcHeight [(x1,y1,z1),(x2,y2,z2)]= sqrt (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2))+((
 					
 parseRCy [] myPoints r h= do currentColor $= Color4 1 0 0 0
                              hOpenGlCylinder myPoints r h
+                            {- rotate (read "90.0" :: GLfloat) $ Vector3 (read "0.3" :: GLfloat)  (read "0.0" :: GLfloat) (read "0.8" :: GLfloat)-}
 parseRCy (xs:xss) myPoints r h = do
                                     if (isInfixOf "color rgb" xs )
                                      then
                                        let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                        in
+                                        do
                                          setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                         parseRCy xss myPoints r h
                                      else
                                        if (isInfixOf "translate" xs )
                                          then
                                            let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                             in
+                                             do
                                               translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                              parseRCy xss myPoints r h
                                          else
                                            if (isInfixOf "rotate" xs )
                                              then
                                                let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                 in
+                                                 do
                                                   rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                  parseRCy xss myPoints r h
                                              else
                                                if (isInfixOf "scale" xs )
                                                then
                                                  let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
                                                   in
-                                                   scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                   do
+                                                    scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                    parseRCy xss myPoints r h
                                                else
                                                  parseRCy xss myPoints r h
-                                    hOpenGlCylinder myPoints r h
+                                  --  hOpenGlCylinder myPoints r h
                                     
                                     
                                     

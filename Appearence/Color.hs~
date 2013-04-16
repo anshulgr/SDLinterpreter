@@ -1,4 +1,4 @@
-module Color where
+module Appearence.Color where
 
 import Text.ParserCombinators.Parsec
 import Data.Char
@@ -22,6 +22,6 @@ setColorRGB xs =  let (r,rs)   = getRGBVal (tail xs)
                       let (g, gs) = getRGBVal rs
                         in 
                           let (b,bs) = getRGBVal gs
-                            in currentColor $= Color4 (read r) (read g) (read b) 0
- 
+                            in do clearColor $= Color4 0 0 0 0
+                                  currentColor $= Color4 (read r) (read g) (read b) 0
 
