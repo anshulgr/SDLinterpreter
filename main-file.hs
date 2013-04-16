@@ -16,7 +16,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import System.Environment
 
-
+{-hello-}
 createAWindow windowName arg = do
            --depthFunc $= Just Less
            createWindow windowName
@@ -52,10 +52,11 @@ displayFunction (x:xs) = do
                              res        -> defaultFunc  
          -- flush
           displayFunction xs
+       {--    displayFunction xs--}
 
 
 
-
+{--change testing comment -}
 
 
 defaultFunc = print ([(0.0,0.0,0.0)])
