@@ -16,7 +16,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import System.Environment
 
-{-hello-}
+{-hello from ladha-}
 createAWindow windowName arg = do
            --depthFunc $= Just Less
            createWindow windowName
