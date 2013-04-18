@@ -6,6 +6,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
 
+-- | Obtains Translate Co-ordinates
 getTranslateVal :: String->(String,String)
 getTranslateVal [] = ([],[])
 getTranslateVal (x:xs) = do
@@ -16,7 +17,7 @@ getTranslateVal (x:xs) = do
                       then (fst(getTranslateVal xs),snd(getTranslateVal xs))
                       else (x:fst(getTranslateVal xs),snd(getTranslateVal xs))
 
-
+-- | Calls HOpenGL translate function using obtained co-ordinates
 translateImage xs =let (r,rs)   = getTranslateVal (tail xs)
                     in 
                       let (g, gs) = getTranslateVal rs

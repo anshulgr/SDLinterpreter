@@ -15,5 +15,5 @@ right< 1, 0, 1 >
 }
 light_source {
 <5, 10, -15> 
-color rgb <1,1,1>
+color rgb <0,1,0>
 }

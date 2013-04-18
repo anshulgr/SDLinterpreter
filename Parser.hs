@@ -7,8 +7,8 @@ import Graphics.Rendering.OpenGL
 
 
 
-csvFile :: GenParser Char st [[String]]
-csvFile = 
+povrayFile :: GenParser Char st [[String]]
+povrayFile = 
     do result <- many line
        eof
        return result
@@ -27,9 +27,9 @@ cells c =
     do first <- cellContent 
        next <- remainingCells c
        if (foldr (\a b -> (isSpace a) && b) True first )
-       then
+        then
           return (next)
-       else
+        else
           return ((removeSpaces  first) : next)
 
 -- The cell either ends with a comma, indicating that 1 or more cells follow,
@@ -55,8 +55,8 @@ cellContent =
 eol :: GenParser Char st Char
 eol = char '\n' <|> char '}'
 
-parseCSV :: String -> Either ParseError [[String]]
-parseCSV input = parse csvFile "(unknown)" input
+parsePOVRAY :: String -> Either ParseError [[String]]
+parsePOVRAY input = parse povrayFile "(unknown)" input
 
 removeSpaces [] = []
 removeSpaces (x:[]) | isSpace x =[]
@@ -64,9 +64,11 @@ removeSpaces (x:[]) | isSpace x =[]
 removeSpaces (x:y:xs) | (isSpace x == True && isSpace y == False)  = x:y:(removeSpaces xs)
                       | (isSpace x == True && isSpace y == True)  = (removeSpaces (y:xs))
                       | otherwise = x : (removeSpaces (y:xs))
+                      
+-- | Reads the POV-ray file
 mainComputation arg  = do
-         contents <- readFile arg--"cylinder.pov"
-         return $ parseCSV contents
+         contents <- readFile arg
+         return $ parsePOVRAY contents
 
 
 

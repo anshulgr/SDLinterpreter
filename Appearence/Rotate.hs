@@ -6,6 +6,7 @@ import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import Data.List
 
+-- | Obtains Rotate Co-ordinates
 getRotateVal :: String->(String,String)
 getRotateVal [] = ([],[])
 getRotateVal (x:xs) = do
@@ -16,7 +17,7 @@ getRotateVal (x:xs) = do
                       then (fst(getRotateVal xs),snd(getRotateVal xs))
                       else (x:fst(getRotateVal xs),snd(getRotateVal xs))
 
-
+-- | Calls HOpenGL rotate function using obtained co-ordinates
 rotateImage xs =let (r,rs)   = getRotateVal (tail xs)
                     in 
                       let (g, gs) = getRotateVal rs

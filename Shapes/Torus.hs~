@@ -10,52 +10,37 @@ import Appearence.Rotate
 import Appearence.Scale
 import Data.List
 
-
+-- | Obtains parameters of the torus
 torusFound::[String] -> IO ()
 torusFound (x:y:xs)= let rad1 = read x
 			 rad2 = read y
 		            in parseRTorus xs rad1 rad2
 
-
+-- | Obtains other attributes of the torus
 parseRTorus [] r h= do currentColor $= Color4 1 0 0 0
                        hOpenGlTorus r h
-parseRTorus (xs:xss) r h = do
-                             if (isInfixOf "color rgb" xs )
-                              then
-                               let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
-                                in
-                                 do
-                                  setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
-                                  parseRTorus xss r h
-                              else
-                                
-                                       if (isInfixOf "translate" xs )
-                                         then
-                                           let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
-                                            in
-                                             do
-                                              translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
-                                              parseRTorus xss r h
-                                         else
-                                          if (isInfixOf "rotate" xs )
-                                             then
-                                               let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
-                                                in
-                                                 do
-                                                  rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
-                                                  parseRTorus xss r h
-                                             else
-                                               if (isInfixOf "scale" xs )
-                                               then
-                                                 let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
-                                                  in
-                                                   do
-                                                    scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
-                                                    parseRTorus xss r h
-                                               else 
-                                                 parseRTorus xss r h
-                          --   hOpenGlTorus r h
-                            
-
-
-hOpenGlTorus rad1 rad2 = renderObject Solid (Torus (rad1) (rad2) 1000 1000)
+parseRTorus (xs:xss) r h                |(isInfixOf "color rgb" xs ) = do
+                                                                        let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
+                                                                        do
+                                                                         setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                                         parseRTorus xss myPoints r h
+                                        |(isInfixOf "translate" xs ) = do
+                                                                        let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
+                                                                        do
+                                                                         translateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                                         parseRTorus xss myPoints r h
+                                        |(isInfixOf "rotate" xs )    = do
+                                                                        let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
+                                                                        do
+                                                                         rotateImage (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                                         parseRTorus xss myPoints r h
+                                        |(isInfixOf "scale" xs )    = do
+                                                                        let interm= snd(splitAt (head(elemIndices '<' xs)) xs)
+                                                                        do
+                                                                         scaleImage1 (fst (splitAt (head(elemIndices '>' xs)) interm))
+                                                                         parseRTorus xss myPoints r h
+                                        |otherwise                  =  parseRTorus xss myPoints r h
+                                 
+                    
+-- | Renders HOpenGL Torus with obtained parameters
+hOpenGlTorus rad1 rad2 = renderObject Solid (Torus (rad1) (-1*rad2) 1000 1000)

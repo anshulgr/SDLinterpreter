@@ -1,3 +1,4 @@
+module Main(main) where
 import Parser
 import Shapes.Polygon
 import Shapes.Triangle
@@ -7,27 +8,29 @@ import Shapes.Cone
 import Shapes.Sphere
 import Appearence.Camera
 import Appearence.Light
-{-import Parser
-import Appearence
-import Shapes-}
 import Text.ParserCombinators.Parsec
 import Data.Char
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import System.Environment
 
-{-hello-}
+-- | Gets input file as command line argument and initializes the arguments of HOpenGL
+-- | Main
+main:: IO()
+main = do
+    (arg1:args) <- getArgs
+    (progName,_) <-getArgsAndInitialize
+    createAWindow progName arg1
+    mainLoop
+
+
+-- | Creates a new HOpenGL window
 createAWindow windowName arg = do
-           --depthFunc $= Just Less
            createWindow windowName
-           
-          
-        --   diffuse (Light 0) $= Color4 0 1 0 1
-        --   specular (Light 0) $= Color4 0 0 1 1
-        
            displayCallback $= separateResult arg
 
 
+-- | Collects tokens of POV-Ray file from Parser
 separateResult arg = do
           clear [ColorBuffer,DepthBuffer]
           res <- mainComputation arg
@@ -35,7 +38,7 @@ separateResult arg = do
             Right x -> displayFunction x
             Left x  -> error (show x)
 
-
+-- | Recognizes keywords and calls corresponding function
 displayFunction [] = flush
 displayFunction (x:xs) = do
          
@@ -50,19 +53,9 @@ displayFunction (x:xs) = do
                              "light_source" -> lightSourceFound (tail x)
                              
                              res        -> defaultFunc  
-         -- flush
           displayFunction xs
-       {--    displayFunction xs--}
 
+ 
+defaultFunc = print ("Rendering ...")
 
-
-{--change testing comment -}
-
-
-defaultFunc = print ([(0.0,0.0,0.0)])
-main = do
-    (arg1:args) <- getArgs
-    (progName,_) <-getArgsAndInitialize
-    createAWindow progName arg1
-    mainLoop
 

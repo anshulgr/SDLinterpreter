@@ -5,24 +5,20 @@ import Data.List
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 import System.Environment
+
+-- | Sets Position and Color of light source
 lightSourceFound (xs:xss) = do
                                let (x,y,z) = separateCoords xs
                                    (r,g,b) = separateCoords (head xss)
                                 
                                lighting $= Enabled
                                position (Light 0) $= Vertex4 (read x) (read y) (read z) 1
-                               --print "hi"
                                ambient (Light 0) $= Color4 (read r) (read g) (read b) 0
                                specular (Light 0) $= Color4 (read r) (read g) (read b) 0
                                diffuse (Light 0) $= Color4 (read r) (read g) (read b) 0
                                light (Light 0) $= Enabled 
-                              -- clear [ColorBuffer,DepthBuffer]
-                               
-                               
-                              
-                      -- currentColor $= Color4 0 0 0 0
-                       --clearColor $= Color4 0 0 0 1
-                       
+                   
+                    
 getRGBVal :: String->(String,String)
 getRGBVal [] = ([],[])
 getRGBVal (x:xs) = do
@@ -40,14 +36,3 @@ separateCoords xs = do    let interm  = snd(splitAt (head(elemIndices '<' xs)) x
                               (g,gs)  = getRGBVal rs
                               (b,bs)  = getRGBVal gs
                            in (r,g,b)
-                        {-   
-                         lighting $= Enabled
-                         position (Light 0) $= Vertex4 1 0.4 0.8 1
-                         ambient (Light 0) $= Color4 1 0 0 0
-                         specular (Light 0) $= Color4 1 0 0 0
-                         diffuse (Light 0) $= Color4 1 0 0 0
-                         light (Light 0) $= Enabled
-                         clear [ColorBuffer,DepthBuffer] 
-                           
-                                  setColorRGB (fst (splitAt (head(elemIndices '>' xs)) interm))
-                                  -}

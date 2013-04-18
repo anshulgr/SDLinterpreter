@@ -2,7 +2,7 @@ cylinder {
 <0, 0, -2>
 <0, 10, -2>
 1.5
-pigment { color rgb <1,0,0> }
+pigment { color rgb <1,1,1> }
 }
 camera {
 up< 1, 2, 3 >
